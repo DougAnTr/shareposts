@@ -25,56 +25,13 @@ class Users extends Controller
             $validation = new Form_validation();
 
             $validation->validate($data, [
-                'email' => [
-                    'required' => [
-                        'message' => 'Please enter email'
-                    ]
-                ],
-                'name' => [
-                    'required' => [
-                        'message' => 'Please enter name'
-                    ]
-                ],
-                'password' => [
-                    'required' => [
-                        'message' => 'Please enter password'
-                    ],
-                    'minLength' => [
-                        'message' => 
-                    ]
-                ],
-                'confirm_password' => [
-                    'required' => [
-                        'message' => 'Please confirm password'
-                    ],
-                    "match" => [
-                        'message' => 'Passwords do not match',
-                        'matchRule' => "password.{$data['password']}"
-                    ]
-                ]
+                'email' => 'required',
+                'name' => 'required', 
+                'password' => 'required|minLenght[6]',
+                'confirm_password' => "required|matches[password.{$data['password']}]"
             ]);
 
-            if (empty($data['email'])) {
-                $data['email_err'] = 'Please enter email';
-            }
-
-            if (empty($data['name'])) {
-                $data['name_err'] = 'Please enter name';
-            }
-
-            if (empty($data['password'])) {
-                $data['password_err'] = 'Please enter password';
-            } elseif (strlen($data['password']) < 6) {
-                $data['password_err'] = 'Password must be at least 6 characters';
-            }
-
-            if (empty($data['confirm_password'])) {
-                $data['confirm_password_err'] = 'Please confirm password';
-            } else {
-                if ($data['password'] !== $data['confirm_password_err']) {
-                    $data['confirm_password_err'] = 'Passwords do not match';
-                }
-            }
+            echo $validation->getErrors();
 
         } else {
             $data = [
