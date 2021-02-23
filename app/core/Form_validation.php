@@ -13,7 +13,7 @@ class Form_validation
         'matches'
     ];
 
-    public function setError($fieldName, $error)
+    private function setError($fieldName, $error)
     {
         $this->errors[$fieldName] = $error;
     }
