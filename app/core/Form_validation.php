@@ -47,10 +47,6 @@ class Form_validation
         }
     }
 
-    // $data = [
-    //     'name' => 'required|minLength[8]'
-    // ];
-
     public function validate($data, $rules)
     {
         foreach ($data as $field => $value) {
